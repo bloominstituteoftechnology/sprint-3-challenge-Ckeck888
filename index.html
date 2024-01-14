@@ -212,34 +212,33 @@
     // 👉 CHALLENGE 4 AntFarm
     class AntFarm {
       constructor(...antNames) {
-        this.ants = antNames.map(name => ({name, health: 100}));
-      }
+        this.ants = antNames.map(name => ({ name, health: 100 }));
+        }
+      
 
       work () {
-        if (this.ants.length === 0) {
-          return "No ants here. Did you work them to death?";
-        }
-
         const initialAntCount = this.ants.length;
-        this.ants.forEach(ant => ant.health -= 20);
-        this.ants = this.ants.filter(ant => ant.health > 0);
-        const remainingAntCount = this.ants.length;
-        const workedAnts = initialAntCount - remainingAntCount;
+        if (this.ants.length === 0) {
+          return "No ants here. Did you work them to death?"
+        }
+        this.ants.forEach((ant) => {ant.health -=20;})
+        this.ants = this.ants.filter((ant) => ant.health > 0);
 
-        return `${workedAnts} ${workedAnts === 1 ? 'ant' : 'ants'} starting work!`;
+        
+        return `${initialAntCount} ants starting work!`;
       }
 
       feed(targetedAntName) {
         const targetedAnt = this.ants.filter(ant => ant.name === targetedAntName);
 
-        if (targetedAnt) {
-          targetedAnt.health += 15;
+        if (targetedAnt.length > 0) {
+          targetedAnt.forEach((ant) => {ant.health += 15})
           return "Yum!";
         } else {
           return `${targetedAntName} not found!`;
         }
       }
-
+    
       // 🧠 Constructor takes **any** number of arguments, which are strings: the names of your ants
       // 🧠 Instances of AntFarm have an `ants` property holding an array of ants:
       //      * Each ant is an object with a `name` prop and a `health` prop that starts at 100
